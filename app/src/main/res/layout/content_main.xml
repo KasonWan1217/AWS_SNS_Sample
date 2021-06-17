@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <TextView
+        android:id="@+id/txt_token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/btn_txt_token"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/label_deviceToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_token" />
+
+    <Button
+        android:id="@+id/btn_retrieveToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#737373"
+        android:text="@string/btn_txt_token_retrieve"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_deviceToken" />
+
+    <Button
+        android:id="@+id/btn_regToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="#737373"
+        android:text="@string/btn_txt_token_register"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_retrieveToken" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_regToken"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_mpf_subscript"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30px"
+                android:background="#737373"
+                android:text="@string/btn_txt_MPF_topic_subscript"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_mpf_unsubscript"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_mpf_subscript"
+                android:layout_marginBottom="30px"
+                android:background="#737373"
+                android:text="@string/btn_txt_MPF_topic_unsubscribe"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_sendNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_mpf_unsubscript"
+                android:layout_marginBottom="30px"
+                android:background="#737373"
+                android:text="@string/btn_txt_send_hello_notification"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_sendGroupNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_sendNotification"
+                android:layout_marginBottom="30px"
+                android:background="#737373"
+                android:text="@string/btn_txt_send_group_notification"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

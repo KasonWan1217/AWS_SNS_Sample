@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">AWS_SNS_Sample</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_inbox">Inbox</string>
+
+    <string name="msg_subscribed">Subscribed</string>
+    <string name="msg_subscription_failed">Subscription Failed</string>
+    <string name="msg_token_fmt">Retrieve Registration Token</string>
+    <string name="msg_topic_cancelling_subscription_success">Unsubscribe Success</string>
+    <string name="msg_topic_cancelling_subscription_fail">Unsubscribe Failed</string>
+
+    <string name="btn_txt_token">Token</string>
+    <string name="btn_txt_token_retrieve">Token Retrieve</string>
+    <string name="btn_txt_token_register">Token Register</string>
+    <string name="btn_txt_MPF_topic_subscript">MPF Topic Subscript</string>
+    <string name="btn_txt_MPF_topic_unsubscribe">MPF Topic Unsubscribe</string>
+    <string name="btn_txt_send_hello_notification">Send Notification(P)</string>
+    <string name="btn_txt_send_group_notification">Send Group Notification(P)</string>
+
+    <string name="topic_MPF">MPF</string>
+    <string name="topic_Default_Group01">BEA_Group1</string>
+    <string name="notification_channel_id">1346798520</string>
+    <string name="notification_channel_name">HKBEA_MPF</string>
+
+    <string name="SHARED_PREF_FILE_PUSH_SERVICE_SETTING">BEA Push Service Setting</string>
+    <string name="SHARED_PREF_KEY_TOKEN">DeviceToken</string>
+    <string name="SHARED_PREF_KEY_INBOX_RECORDSHARED_PREF_KEY_ARN">ARN</string>
+    <string name="SHARED_PREF_FILE_INBOX_RECORD">BEA Inbox Record</string>
+    <string name="SHARED_PREF_KEY_INBOX_RECORD">InboxRecord</string>
+
+    <string name="NOTIFICATION_STYLE_Normal">N</string>
+    <string name="NOTIFICATION_STYLE_Reply">R</string>
+    <string name="NOTIFICATION_STYLE_Action">A</string>
+
+    //Common
+    <string name="COMMON_COPIED">Copied</string>
+    <string name="COMMON_REGISTER_SUCCESS">Register Success.</string>
+
+
+</resources>
