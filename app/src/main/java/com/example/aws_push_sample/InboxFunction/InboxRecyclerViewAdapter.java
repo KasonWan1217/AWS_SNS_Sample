@@ -9,19 +9,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.aws_push_sample.InboxFunction.InboxService.InboxObject;
+import com.example.aws_push_sample.InboxFunction.InboxService.InboxRecordObject;
 import com.example.aws_push_sample.R;
 
 import java.util.List;
 
 public class InboxRecyclerViewAdapter extends RecyclerView.Adapter<InboxRecyclerViewAdapter.ViewHolder> {
 
-    private List<InboxObject> mData;
+    private List<InboxRecordObject> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    InboxRecyclerViewAdapter(Context context, List<InboxObject> data) {
+    InboxRecyclerViewAdapter(Context context, List<InboxRecordObject> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -36,9 +36,9 @@ public class InboxRecyclerViewAdapter extends RecyclerView.Adapter<InboxRecycler
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv_datetime.setText(mData.get(position).getDatetime());
+        holder.tv_datetime.setText(mData.get(position).getMsg_timestamp());
         holder.tv_title.setText(mData.get(position).getTitle());
-        if ("R".equals(mData.get(position).getStatus()))
+        if (!mData.get(position).isStatus())
             holder.img_unread_marker.setVisibility(View.GONE);
 //        String animal = mData.get(position);
 //        holder.myTextView.setText(animal);
@@ -71,7 +71,7 @@ public class InboxRecyclerViewAdapter extends RecyclerView.Adapter<InboxRecycler
     }
 
     // convenience method for getting data at click position
-    InboxObject getItem(int id) {
+    InboxRecordObject getItem(int id) {
         return mData.get(id);
     }
 

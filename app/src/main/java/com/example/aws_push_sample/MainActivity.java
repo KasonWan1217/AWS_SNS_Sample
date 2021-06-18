@@ -81,10 +81,13 @@ public class MainActivity extends AppCompatActivity
         btn_retrieveToken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //retrieveToken();
+                /*
                 MyFirebaseMessagingService.retrieveDeviceToken(MainActivity.this);
                 txt_deviceToken.setVisibility(View.VISIBLE);
                 txt_deviceToken.setText(DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_TOKEN), MainActivity.this));
+                 */
             }
         });
         btn_regToken.setOnClickListener(new View.OnClickListener() {

@@ -25,10 +25,10 @@ import com.amazonaws.services.sns.model.UnsubscribeRequest;
 import static android.content.ContentValues.TAG;
 
 public class AWSMessagingService {
-    private static String access_id = "AKIAIGRBVOUVFSDOQIYA";
-    private static String secret_key ="fmIHxy7m+1mk+EoujY4B1MXABWnrYV+ihv09zrkB";
-    private static String appArn = "arn:aws:sns:ap-northeast-1:307834178100:app/GCM/AWS_Push_Sample";
-    private static String topicArn = "arn:aws:sns:ap-northeast-1:307834178100:";
+    private static String access_id = "AKIASLB3NHUA5ZIRHIMF";                       //  AKIAIGRBVOUVFSDOQIYA                        AKIASLB3NHUA5ZIRHIMF
+    private static String secret_key = "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";  //  fmIHxy7m+1mk+EoujY4B1MXABWnrYV+ihv09zrkB    JoULhESSQV2QHVUrj4L8CVutQ9Pv+09uA3q/b6Hw
+    private static String topicArn = "arn:aws:sns:ap-northeast-1:161185873153:";    //  307834178100                                161185873153
+    private static String appArn = topicArn + "app/GCM/BEA_APP_FCM";//":app/GCM/AWS_Push_Sample";
 
     private static AmazonSNSClient snsClient = getAmazonSNSClient();
     private static String arnStorage;
@@ -82,7 +82,7 @@ public class AWSMessagingService {
                     Log.e(TAG, "subscription.getSubscriptionArn() : " + subscription.getSubscriptionArn());
                     Log.e(TAG,"unsubscribeRequest : " + unsubscribeRequest);
                    // if (subscription.get)
-                    if (DeviceStorage.getStringFormConfigFile(activity.getResources().getString(R.string.SHARED_PREF_KEY_INBOX_RECORDSHARED_PREF_KEY_ARN), activity).equals(subscription.getEndpoint()))
+                    if (DeviceStorage.getStringFormConfigFile(activity.getResources().getString(R.string.SHARED_PREF_KEY_INBOX_SHARED_PREF_KEY_ARN), activity).equals(subscription.getEndpoint()))
                         snsClient.unsubscribe(unsubscribeRequest);
                 }
 

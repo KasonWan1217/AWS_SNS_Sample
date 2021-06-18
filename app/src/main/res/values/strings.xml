@@ -31,7 +31,7 @@
 
     <string name="SHARED_PREF_FILE_PUSH_SERVICE_SETTING">BEA Push Service Setting</string>
     <string name="SHARED_PREF_KEY_TOKEN">DeviceToken</string>
-    <string name="SHARED_PREF_KEY_INBOX_RECORDSHARED_PREF_KEY_ARN">ARN</string>
+    <string name="SHARED_PREF_KEY_INBOX_SHARED_PREF_KEY_ARN">ARN</string>
     <string name="SHARED_PREF_FILE_INBOX_RECORD">BEA Inbox Record</string>
     <string name="SHARED_PREF_KEY_INBOX_RECORD">InboxRecord</string>
 

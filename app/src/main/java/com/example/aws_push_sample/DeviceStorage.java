@@ -12,7 +12,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class DeviceStorage {
     public static void storeARN(String val, Activity activity) {
-        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_INBOX_RECORDSHARED_PREF_KEY_ARN), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
+        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_INBOX_SHARED_PREF_KEY_ARN), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
     }
 
     public static void storeToken(String val, Activity activity) {

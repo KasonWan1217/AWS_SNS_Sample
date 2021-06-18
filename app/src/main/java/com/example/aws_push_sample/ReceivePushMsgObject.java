@@ -3,14 +3,13 @@ import androidx.annotation.Nullable;
 
 public class ReceivePushMsgObject {
 
+    private String msg_id;
     private String title;
     private String badge;
     private String body;
     private String sound;
-    private String picture_url;
+    private String pic_url;
     private String type;
-    @Nullable
-    private String msg_id;
     @Nullable
     private String dateTime;
     @Nullable
@@ -75,12 +74,12 @@ public class ReceivePushMsgObject {
         this.sound = sound;
     }
 
-    public String getPicture_url() {
-        return picture_url;
+    public String getPic_url() {
+        return pic_url;
     }
 
-    public void setPicture_url(String picture_url) {
-        this.picture_url = picture_url;
+    public void setPic_url(String pic_url) {
+        this.pic_url = pic_url;
     }
 
     public String getType() {

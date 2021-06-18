@@ -18,12 +18,12 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.aws_push_sample.DeviceStorage;
-import com.example.aws_push_sample.InboxFunction.InboxService.InboxObject;
+import com.example.aws_push_sample.InboxFunction.InboxService.InboxRecordObject;
 import com.example.aws_push_sample.InboxFunction.InboxService.InboxRecordRequest;
+import com.example.aws_push_sample.InboxFunction.InboxService.InboxRequestObject;
 import com.example.aws_push_sample.R;
 import com.google.gson.Gson;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,9 +49,7 @@ public class InboxMainActivity extends AppCompatActivity implements InboxRecycle
         recyclerView = (RecyclerView) findViewById(R.id.tableView_inbox);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        InboxRequestObject tempObj = new InboxRequestObject();
-        tempObj.setStart_datetime("");
-        tempObj.setToken("001");
+        InboxRequestObject tempObj = new InboxRequestObject("001", "");
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         progressBar.setVisibility(View.VISIBLE);
 
@@ -65,7 +63,7 @@ public class InboxMainActivity extends AppCompatActivity implements InboxRecycle
                 DeviceStorage.getStringFormSharedPreferences(getString(R.string.SHARED_PREF_KEY_INBOX_RECORD), getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), InboxMainActivity.this);
                 DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_INBOX_RECORD), "Content", getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), InboxMainActivity.this);
 
-                List<InboxObject> list = Arrays.asList(new Gson().fromJson(result, InboxObject[].class));
+                List<InboxRecordObject> list = Arrays.asList(new Gson().fromJson(result, InboxRecordObject[].class));
                 recyclerView.setLayoutManager(new LinearLayoutManager(InboxMainActivity.this));
                 adapter = new InboxRecyclerViewAdapter(InboxMainActivity.this, list);
                 adapter.setClickListener(InboxMainActivity.this);

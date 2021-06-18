@@ -46,8 +46,6 @@ public class NotificationAlert {
     }
 
     public void showNotification(ReceivePushMsgObject obj, Intent intent) {
-        //postVolleyResponse();
-
         final Icon icon;
         RemoteInput remoteInput = null;
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -70,7 +68,7 @@ public class NotificationAlert {
 
         Bitmap image = null;
         try {
-            String picture_url = obj.getPicture_url();
+            String picture_url = obj.getPic_url();
             if (picture_url != null && !"".equals(picture_url)) {
                 URL url = new URL(picture_url);
                 image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
@@ -79,7 +77,10 @@ public class NotificationAlert {
             e.printStackTrace();
         }
 
-        Notification newMessageNotification = null;
+        Notification temp = new Notification(R.drawable.ic_launcher_foreground, obj.getTitle(), System.currentTimeMillis());
+        temp.flags = Notification.FLAG_AUTO_CANCEL;
+
+        Notification notification = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             Log.e(TAG, "VERSION_CODES >= O: " + android.os.Build.VERSION_CODES.O);
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_id, NOTIFICATION_CHANNEL_Name, NotificationManager.IMPORTANCE_HIGH);
@@ -109,7 +110,7 @@ public class NotificationAlert {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, NOTIFICATION_CHANNEL_id);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && NOTIFICATION_STYLE_Reply.equals(obj.getType())) {
-            newMessageNotification = builder.setContentTitle(obj.getTitle())
+            notification = builder.setContentTitle(obj.getTitle())
                     .setContentText(obj.getBody())
                     .setPriority(Notification.PRIORITY_MAX)
                     .setContentIntent(pendingIntent)
@@ -119,7 +120,7 @@ public class NotificationAlert {
                     .addAction(action)
                     .build();
         } else {
-            newMessageNotification = builder.setContentTitle(obj.getTitle())
+            notification = builder.setContentTitle(obj.getTitle())
                     .setContentText(obj.getBody())
                     .setPriority(Notification.PRIORITY_MAX)
                     .setContentIntent(pendingIntent)
@@ -131,8 +132,7 @@ public class NotificationAlert {
         }
 
         //SET Reply
-
-        notificationManager.notify(Integer.parseInt(NOTIFICATION_CHANNEL_id), newMessageNotification);
+        notificationManager.notify(Integer.parseInt(obj.getMsg_id()), notification);
     }
 
 
