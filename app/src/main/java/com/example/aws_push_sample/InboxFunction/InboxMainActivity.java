@@ -19,7 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.aws_push_sample.DeviceStorage;
 import com.example.aws_push_sample.InboxFunction.InboxService.InboxRecordObject;
-import com.example.aws_push_sample.InboxFunction.InboxService.InboxRecordRequest;
+import com.example.aws_push_sample.Common.CommonRequest;
 import com.example.aws_push_sample.InboxFunction.InboxService.InboxRequestObject;
 import com.example.aws_push_sample.R;
 import com.google.gson.Gson;
@@ -53,15 +53,15 @@ public class InboxMainActivity extends AppCompatActivity implements InboxRecycle
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         progressBar.setVisibility(View.VISIBLE);
 
-        new InboxRecordRequest().getTableRecord(new InboxRecordRequest.VolleyCallback() {
+        new CommonRequest().postJson(new CommonRequest.VolleyCallback() {
             @Override
             public void onSuccess(String result) {
                 Log.e(TAG, "onSuccess()");
                 //activity.getResources().getString(R.string.SHARED_PREF_KEY_ARN)
                 //if (result != null || !"".equals(result))
-                DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_INBOX_RECORD), result, getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), InboxMainActivity.this);
-                DeviceStorage.getStringFormSharedPreferences(getString(R.string.SHARED_PREF_KEY_INBOX_RECORD), getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), InboxMainActivity.this);
-                DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_INBOX_RECORD), "Content", getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), InboxMainActivity.this);
+                DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_Inbox_Record), result, getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), InboxMainActivity.this);
+                DeviceStorage.getStringFormSharedPreferences(getString(R.string.SHARED_PREF_KEY_Inbox_Record), getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), InboxMainActivity.this);
+                DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_Inbox_Record), "Content", getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), InboxMainActivity.this);
 
                 List<InboxRecordObject> list = Arrays.asList(new Gson().fromJson(result, InboxRecordObject[].class));
                 recyclerView.setLayoutManager(new LinearLayoutManager(InboxMainActivity.this));
