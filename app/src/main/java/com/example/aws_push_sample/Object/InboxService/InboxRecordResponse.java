@@ -1,15 +1,15 @@
-package com.example.aws_push_sample.InboxFunction.InboxService;
+package com.example.aws_push_sample.Object.InboxService;
 
 import java.io.Serializable;
 
-public class InboxRecordObject implements Serializable {
+public class InboxRecordResponse implements Serializable {
     private String msg_id;
     private String title;
     private String body;
     private String msg_timestamp;
     private boolean status;
 
-    public InboxRecordObject(String msg_id, String title, String body, String msg_timestamp) {
+    public InboxRecordResponse(String msg_id, String title, String body, String msg_timestamp) {
         this.msg_id = msg_id;
         this.title = title;
         this.body = body;

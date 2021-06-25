@@ -7,7 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.aws_push_sample.InboxFunction.InboxService.InboxRecordObject;
+import com.example.aws_push_sample.Object.InboxService.InboxRecordResponse;
 import com.example.aws_push_sample.R;
 
 public class InboxDetailActivity extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class InboxDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        InboxRecordObject inboxObject = (InboxRecordObject) getIntent().getSerializableExtra("InboxDetailObject");
+        InboxRecordResponse inboxObject = (InboxRecordResponse) getIntent().getSerializableExtra("InboxDetailObject");
 
         tv_title = (TextView) findViewById(R.id.tv_title);
         tv_content = (TextView) findViewById(R.id.tv_content);

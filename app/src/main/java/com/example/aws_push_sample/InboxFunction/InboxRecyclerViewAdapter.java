@@ -9,19 +9,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.aws_push_sample.InboxFunction.InboxService.InboxRecordObject;
+import com.example.aws_push_sample.Object.InboxService.InboxRecordResponse;
 import com.example.aws_push_sample.R;
 
 import java.util.List;
 
 public class InboxRecyclerViewAdapter extends RecyclerView.Adapter<InboxRecyclerViewAdapter.ViewHolder> {
 
-    private List<InboxRecordObject> mData;
+    private List<InboxRecordResponse> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    InboxRecyclerViewAdapter(Context context, List<InboxRecordObject> data) {
+    InboxRecyclerViewAdapter(Context context, List<InboxRecordResponse> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -71,7 +71,7 @@ public class InboxRecyclerViewAdapter extends RecyclerView.Adapter<InboxRecycler
     }
 
     // convenience method for getting data at click position
-    InboxRecordObject getItem(int id) {
+    InboxRecordResponse getItem(int id) {
         return mData.get(id);
     }
 

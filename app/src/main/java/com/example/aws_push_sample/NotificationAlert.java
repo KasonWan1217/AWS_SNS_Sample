@@ -1,6 +1,5 @@
 package com.example.aws_push_sample;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,7 +15,6 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
-import androidx.core.graphics.drawable.IconCompat;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,11 +22,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.example.aws_push_sample.Object.PushMessageResponse;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
 
@@ -45,7 +47,7 @@ public class NotificationAlert {
         this.mContext = mContext;
     }
 
-    public void showNotification(ReceivePushMsgObject obj, Intent intent) {
+    public void showNotification(PushMessageResponse obj, Intent intent) {
         final Icon icon;
         RemoteInput remoteInput = null;
         NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -93,7 +95,7 @@ public class NotificationAlert {
         }
 
         NotificationCompat.Action action = null;
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && NOTIFICATION_STYLE_Reply.equals(obj.getType())) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && NOTIFICATION_STYLE_Reply.equals(obj.getAction_category())) {
             Log.e(TAG, "VERSION.SDK_INT >= Android 7(Build.VERSION_CODES.N): "+Build.VERSION_CODES.N);
 
             String replyLabel = "Enter your reply here";
@@ -109,7 +111,7 @@ public class NotificationAlert {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, NOTIFICATION_CHANNEL_id);
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && NOTIFICATION_STYLE_Reply.equals(obj.getType())) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && NOTIFICATION_STYLE_Reply.equals(obj.getAction_category())) {
             notification = builder.setContentTitle(obj.getTitle())
                     .setContentText(obj.getBody())
                     .setPriority(Notification.PRIORITY_MAX)
@@ -132,7 +134,14 @@ public class NotificationAlert {
         }
 
         //SET Reply
-        notificationManager.notify(Integer.parseInt(obj.getMsg_id()), notification);
+        Log.d(TAG, "showNotification ID : "+ obj.getNotification_id());
+
+//        DateFormat datetime = new SimpleDateFormat("yyDDDHHmm");
+//        datetime.setTimeZone(TimeZone.getTimeZone("Asia/Hong_Kong"));
+//        String newMsgID = datetime.format(new Date());
+//        Log.d(TAG, "showNotification ID : "+Integer.parseInt(newMsgID));
+
+        notificationManager.notify(obj.getNotification_id(), notification);
     }
 
 

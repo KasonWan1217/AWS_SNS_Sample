@@ -2,7 +2,7 @@ package com.example.aws_push_sample.RegisterFunction;
 
 public class RegisterResponseObject {
     private String app_reg_id;
-    private String create_datetime;
+    private String datetime;
 
     public String getApp_reg_id() {
         return app_reg_id;
@@ -12,11 +12,11 @@ public class RegisterResponseObject {
         this.app_reg_id = app_reg_id;
     }
 
-    public String getCreate_datetime() {
-        return create_datetime;
+    public String getDatetime() {
+        return datetime;
     }
 
-    public void setCreate_datetime(String create_datetime) {
-        this.create_datetime = create_datetime;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 }

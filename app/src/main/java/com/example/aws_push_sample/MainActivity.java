@@ -20,9 +20,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
+import com.example.aws_push_sample.Object.CommonResponse;
 import com.example.aws_push_sample.RegisterFunction.RegisterRequestObject;
 import com.example.aws_push_sample.RegisterFunction.RegisterResponseObject;
-import com.google.android.gms.common.internal.service.Common;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -33,6 +33,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import com.google.gson.Gson;
 
+import static com.example.aws_push_sample.Common.CommonRequest.registerAPI_Url;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     final String TAG = "MainActivity";
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     private ImageButton imagebtn_inbox;
     private TextView txt_deviceToken;
     private ProgressBar progressBar;
-    String postAPI = "https://"+R.string.AWS_ApiGateway+".execute-api."+R.string.AWS_Region+".amazonaws.com/"+R.string.AWS_Stage+"/getInboxMessage/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,76 +72,87 @@ public class MainActivity extends AppCompatActivity
         imagebtn_inbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this , InboxMainActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this , InboxMainActivity.class);
+            startActivity(intent);
             }
         });
 
         txt_deviceToken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("txt_token", txt_deviceToken.getText().toString());
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(getApplicationContext(), R.string.COMMON_COPIED, Toast.LENGTH_LONG).show();
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("txt_token", txt_deviceToken.getText().toString());
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(getApplicationContext(), R.string.COMMON_COPIED, Toast.LENGTH_LONG).show();
             }
         });
 
         btn_retrieveToken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //retrieveToken();
-                MyFirebaseMessagingService.retrieveDeviceToken(MainActivity.this);
-                txt_deviceToken.setVisibility(View.VISIBLE);
-                txt_deviceToken.setText(DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this));
+            //retrieveToken();
+            MyFirebaseMessagingService.retrieveDeviceToken(MainActivity.this);
+            txt_deviceToken.setVisibility(View.VISIBLE);
+            txt_deviceToken.setText(DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this));
 
             }
         });
         btn_regToken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String token = DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this);
-                RegisterRequestObject request =  new RegisterRequestObject("", token, "BEA APP", "iOS", "BA");
+            String token = DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this);
+            RegisterRequestObject request =  new RegisterRequestObject("", token, "BEA APP", "Android", "BA");
 
-                progressBar = (ProgressBar) findViewById(R.id.progressBar);
-                RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
-                progressBar.setVisibility(View.VISIBLE);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
+            progressBar.setVisibility(View.VISIBLE);
+            Log.e("postJson Start: ", registerAPI_Url);
+            new CommonRequest().postJson(new CommonRequest.VolleyCallback() {
+                @Override
+                public void onSuccess(CommonResponse result) {
+                    Log.e("postJson result: ", result.getString_message());
+                    RegisterResponseObject response = new Gson().fromJson(result.getString_message(), RegisterResponseObject.class);
+                    DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_App_Ref_ID), response.getApp_reg_id(), getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), MainActivity.this);
+                    DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_Access_Datetime), response.getDatetime(), getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), MainActivity.this);
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Register Success.", Toast.LENGTH_LONG).show();
+                }
 
-                new CommonRequest().postJson(new CommonRequest.VolleyCallback() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Log.e(TAG, "onSuccess()");
-                        //activity.getResources().getString(R.string.SHARED_PREF_KEY_ARN)
-                        //if (result != null || !"".equals(result))
-
-                        RegisterResponseObject response = new Gson().fromJson(result, RegisterResponseObject.class);
-                        DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_App_Ref_ID), response.getApp_reg_id(), getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), MainActivity.this);
-                        DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_Create_Datetime), response.getCreate_datetime(), getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), MainActivity.this);
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }, mQueue, request, postAPI);
-                //AWSMessagingService.subscriptSNSTopic(token,  getString(R.string.topic_Default_Group01), MainActivity.this);
-                Toast.makeText(getApplicationContext(), "Register Success.", Toast.LENGTH_LONG).show();
+                @Override
+                public void onError(CommonResponse result) {
+                    Toast.makeText(getApplicationContext(), "Register Fails.", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }, mQueue, request, registerAPI_Url);
             }
         });
 
         btn_mpf_subscript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String token = DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this);
-                //MyFirebaseMessagingService.subscribe(MainActivity.this, getString(R.string.topic_MPF));
-                //AWSMessagingService.subscriptSNSTopic(token, getString(R.string.topic_MPF), MainActivity.this);
-                Toast.makeText(getApplicationContext(), "subscript SNS Topic Success.", Toast.LENGTH_LONG).show();
+                DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_Inbox_Record), "null", getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), MainActivity.this);
+                Toast.makeText(getApplicationContext(), "Success.", Toast.LENGTH_LONG).show();
+                String inbox_record = DeviceStorage.getStringFormSharedPreferences(getString(R.string.SHARED_PREF_KEY_Inbox_Record), getString(R.string.SHARED_PREF_FILE_INBOX_RECORD), MainActivity.this);
+                String access_Datetime = DeviceStorage.getStringFormSharedPreferences(getString(R.string.SHARED_PREF_KEY_Access_Datetime), getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), MainActivity.this);
+                String app_Ref_ID = DeviceStorage.getStringFormSharedPreferences(getString(R.string.SHARED_PREF_KEY_App_Ref_ID), getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), MainActivity.this);
+
+                Log.e("Inbox_Record: ", inbox_record);
+                Log.e("Access_Datetime: ", access_Datetime);
+                Log.e("App_Ref_ID: ", app_Ref_ID);
+
+//                String token = DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this);
+//            //MyFirebaseMessagingService.subscribe(MainActivity.this, getString(R.string.topic_MPF));
+//            //AWSMessagingService.subscriptSNSTopic(token, getString(R.string.topic_MPF), MainActivity.this);
+//            Toast.makeText(getApplicationContext(), "subscript SNS Topic Success.", Toast.LENGTH_LONG).show();
             }
         });
         btn_mpf_unsubscript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //MyFirebaseMessagingService.unSubscribe(MainActivity.this, getString(R.string.topic_MPF));
-                //AWSMessagingService.unSubscriptSNSTopic(DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this),getString(R.string.topic_MPF),MainActivity.this);
-                Toast.makeText(getApplicationContext(), "unsubscribe SNS Topic Success.", Toast.LENGTH_LONG).show();
+            //MyFirebaseMessagingService.unSubscribe(MainActivity.this, getString(R.string.topic_MPF));
+            //AWSMessagingService.unSubscriptSNSTopic(DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this),getString(R.string.topic_MPF),MainActivity.this);
+            Toast.makeText(getApplicationContext(), "unsubscribe SNS Topic Success.", Toast.LENGTH_LONG).show();
             }
         });
 

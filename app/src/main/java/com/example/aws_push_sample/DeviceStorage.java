@@ -11,12 +11,12 @@ import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
 
 public class DeviceStorage {
-    public static void storeARN(String val, Activity activity) {
-        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_INBOX_SHARED_PREF_KEY_ARN), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
+    public static void storeApp_Reg_ID(String val, Activity activity) {
+        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_App_Ref_ID), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
     }
 
     public static void storeToken(String val, Activity activity) {
-        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_TOKEN), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
+        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_Token), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
     }
 
     public static String getStringFormConfigFile(String key, Activity activity) {
