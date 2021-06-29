@@ -79,9 +79,6 @@ public class NotificationAlert {
             e.printStackTrace();
         }
 
-        Notification temp = new Notification(R.drawable.ic_launcher_foreground, obj.getTitle(), System.currentTimeMillis());
-        temp.flags = Notification.FLAG_AUTO_CANCEL;
-
         Notification notification = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             Log.e(TAG, "VERSION_CODES >= O: " + android.os.Build.VERSION_CODES.O);
@@ -140,7 +137,6 @@ public class NotificationAlert {
 //        datetime.setTimeZone(TimeZone.getTimeZone("Asia/Hong_Kong"));
 //        String newMsgID = datetime.format(new Date());
 //        Log.d(TAG, "showNotification ID : "+Integer.parseInt(newMsgID));
-
         notificationManager.notify(obj.getNotification_id(), notification);
     }
 
