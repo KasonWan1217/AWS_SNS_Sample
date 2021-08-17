@@ -1,5 +1,6 @@
 package com.example.aws_push_sample;
 
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
