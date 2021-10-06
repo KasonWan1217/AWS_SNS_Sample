@@ -16,7 +16,11 @@ public class DeviceStorage {
     }
 
     public static void storeToken(String val, Activity activity) {
-        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_Token), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
+        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_DToken), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
+    }
+
+    public static void storeOriToken(String val, Activity activity) {
+        storeStringToSharedPreferences(activity.getResources().getString(R.string.SHARED_PREF_KEY_Ori_DToken), val, activity.getResources().getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), activity);
     }
 
     public static String getStringFormConfigFile(String key, Activity activity) {

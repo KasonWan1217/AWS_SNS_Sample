@@ -30,7 +30,8 @@
     <string name="notification_channel_name">HKBEA_MPF</string>
 
     <string name="SHARED_PREF_FILE_PUSH_SERVICE_SETTING">BEA Push Service Setting</string>
-    <string name="SHARED_PREF_KEY_Token">DeviceToken</string>
+    <string name="SHARED_PREF_KEY_DToken">DeviceToken</string>
+    <string name="SHARED_PREF_KEY_Ori_DToken">Ori_DeviceToken</string>
     <string name="SHARED_PREF_KEY_App_Ref_ID">App_Ref_ID</string>
     <string name="SHARED_PREF_KEY_Access_Datetime">access_datetime</string>
 

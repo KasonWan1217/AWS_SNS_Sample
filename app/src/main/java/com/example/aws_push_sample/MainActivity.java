@@ -95,15 +95,23 @@ public class MainActivity extends AppCompatActivity
             //retrieveToken();
             MyFirebaseMessagingService.retrieveDeviceToken(MainActivity.this);
             txt_deviceToken.setVisibility(View.VISIBLE);
-            txt_deviceToken.setText(DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this));
+            txt_deviceToken.setText(DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_DToken), MainActivity.this));
 
             }
         });
         btn_regToken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            String token = DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Token), MainActivity.this);
-            RegisterRequestObject request =  new RegisterRequestObject("", token, "BEA APP", "Android", "BA");
+            final String dToken = DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_DToken), MainActivity.this);
+            String ori_dToken = "";
+            String app_reg_id = "";
+            try {
+                ori_dToken = DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_Ori_DToken), MainActivity.this);
+                app_reg_id = DeviceStorage.getStringFormConfigFile(getString(R.string.SHARED_PREF_KEY_App_Ref_ID), MainActivity.this);
+            } catch (Exception e) {
+                Log.e("Get Ori Token Error: ", e.toString());
+            }
+            RegisterRequestObject request =  new RegisterRequestObject(app_reg_id, dToken, ori_dToken,"BEA APP", "Android", "BA");
 
             progressBar = (ProgressBar) findViewById(R.id.progressBar);
             RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
@@ -118,6 +126,7 @@ public class MainActivity extends AppCompatActivity
                     DeviceStorage.storeStringToSharedPreferences(getString(R.string.SHARED_PREF_KEY_Access_Datetime), response.getDatetime(), getString(R.string.SHARED_PREF_FILE_PUSH_SERVICE_SETTING), MainActivity.this);
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), "Register Success.", Toast.LENGTH_LONG).show();
+                    DeviceStorage.storeOriToken(dToken, MainActivity.this);
                 }
 
                 @Override
